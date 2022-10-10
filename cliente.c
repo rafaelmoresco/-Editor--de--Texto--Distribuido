@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+
 int main()
 {
   int sockfd;
@@ -13,7 +14,6 @@ int main()
   struct sockaddr_in address;
   int result;
   char op[8], ind[2], text[256], cmd[266];
-
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
   address.sin_family = AF_INET;
@@ -31,12 +31,15 @@ int main()
 	while (1) {
     printf("Type Operation: ");
     scanf("%s", &op);
-    printf("%s\n", &op);
     if (strcmp(op, "add_line") == 0) {
       printf("Type Line: ");
       scanf("%s", &ind);
       printf("Type Text:\n");
-      scanf("%s", &text);
+      int c;
+      do{
+        c = getchar();
+      }while (c != EOF && c != '\n');
+      fgets(text, 256, stdin);
       strcpy(cmd, op); strcat(cmd, ind); strcat(cmd, text);
       write(sockfd, &cmd, sizeof(cmd));
     } else {
@@ -44,14 +47,19 @@ int main()
         printf("Type Line: ");
         scanf("%s", &ind);
         strcpy(cmd, op); strcat(cmd, ind);
+        printf("%s\n", cmd);
         write(sockfd, &cmd, sizeof(cmd));
         read(sockfd, &text, sizeof(text));
         printf("%s\n", &text);
       } else {
-        printf("Invalid Operation\n");
-        break;
+        if (strcmp(op, "exit") == 0) {
+          break;
+        } else {
+          printf("Invalid Operation\n");
+        }
       }
-    }  
+    }
+    
   }
   close(sockfd);
 	exit(0);
