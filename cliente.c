@@ -47,19 +47,19 @@ int main()
         printf("Type Line: ");
         scanf("%s", &ind);
         strcpy(cmd, op); strcat(cmd, ind);
-        printf("%s\n", cmd);
         write(sockfd, &cmd, sizeof(cmd));
         read(sockfd, &text, sizeof(text));
         printf("%s\n", &text);
       } else {
         if (strcmp(op, "exit") == 0) {
+          char exit = 'e';
+          write(sockfd, &exit, 1);
           break;
         } else {
           printf("Invalid Operation\n");
         }
       }
     }
-    
   }
   close(sockfd);
 	exit(0);
