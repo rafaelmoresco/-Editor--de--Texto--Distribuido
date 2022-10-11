@@ -49,7 +49,7 @@ int main()
         strcpy(cmd, op); strcat(cmd, ind);
         write(sockfd, &cmd, sizeof(cmd));
         read(sockfd, &text, sizeof(text));
-        printf("%s\n", &text);
+        printf("%s", &text);
       } else {
         if (strcmp(op, "exit") == 0) {
           char exit = 'e';

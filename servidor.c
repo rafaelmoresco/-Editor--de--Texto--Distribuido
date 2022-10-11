@@ -75,7 +75,7 @@ void* user(void *arg){
         int line_index = (cmd[8]-'0')*10 + (cmd[9]-'0');
         pthread_mutex_lock(&doc_lock);
         for (int i = 0; i < 256; i++) {
-          rtn[i] = document[line_index][i];
+          rtn[i] = document[line_index][i+1];
           if (document[line_index][i] == '\0') {
             break;
           }
