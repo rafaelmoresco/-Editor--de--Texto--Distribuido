@@ -42,12 +42,13 @@ int main()
     if (pthread_create(&tid[i++], NULL, user, &client_sockfd)!=0) {
       printf("Failed to create thread\n");
     } else {
-      printf("Thread %d created\n", &i);
+      printf("Thread %i created\n", i);
     }
     if (i > max_clients) {
       i = 0;
       while (i < max_clients) {
         pthread_join(tid[i++], NULL);
+        printf("Thread %i finished\n", i);
       }
       i = 0;
     }
@@ -57,8 +58,7 @@ void* user(void *arg){
   int client_sockfd = *((int *)arg);
   char cmd[10+line_size];
   char rtn[line_size];
-  while (1)
-  {
+  while (1) {
     read(client_sockfd, &cmd, sizeof(cmd));
 		if (cmd[0] == 'a' && cmd[1] == 'd' && cmd[2] == 'd') {
       int line_index = (cmd[8]-'0')*10 + (cmd[9]-'0');
@@ -88,4 +88,5 @@ void* user(void *arg){
       }
     }
   }
+  pthread_exit(NULL);
 }
