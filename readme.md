@@ -1,11 +1,11 @@
-## Editor de Texto Distribuido
+# Editor de Texto Distribuido
 
 Atividade prática para desenvolver programas com *Sockets* em C.
 Foi realizado um servidor basico que armazena em memória temporária
 uma matriz de caracteres, que pode ser editada linha por linha pelos
 programas clientes.
 
-# Executando
+## Executando
 
 Para rodar o programa, é necessario inicialmente buildar os executavies:
 ```sh
@@ -20,7 +20,7 @@ Em outro console, abra uma instancia do cliente com:
 ./cliente
 ```
 
-# Comandos do Cliente
+## Comandos do Cliente
 Escrever em uma linha desejada na matriz
 ```
 add_line
